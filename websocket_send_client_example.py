@@ -12,12 +12,14 @@ def on_message(ws, message):
 
 def on_open(ws):
     def run(*args):
-        for i in range(3):
-            message = "Hello {}".format(i)
+        i = 1
+        while True:
+            message = "Message {}".format(i)
             print("send:{}".format(message))
             ws.send(message)
             time.sleep(1)
-        ws.close()
+            i += 1
+        ws.close()  # not reach
     threading.Thread(target=run).start()
 
 
