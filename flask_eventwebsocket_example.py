@@ -20,10 +20,8 @@ def api():
             ws.send(message)
     return
 
-@click.command()
-@click.option('--port', '-P', default='8000')
-def server_loop(port):
-    http_server = WSGIServer(('', int(port)), app, handler_class=WebSocketHandler)
+def server_loop():
+    http_server = WSGIServer(('', PORT), app, handler_class=WebSocketHandler)
     http_server.serve_forever()
 
 if __name__ == '__main__':
