@@ -1,13 +1,14 @@
+import threading
 import websocket
+import time
 
 HOST='localhost'
 PORT=8000
 
-import _thread as thread
-import time
 
 def on_message(ws, message):
     print("on_message:{}".format(message))
+
 
 def on_open(ws):
     def run(*args):
@@ -17,7 +18,8 @@ def on_open(ws):
             ws.send(message)
             time.sleep(1)
         ws.close()
-    thread.start_new_thread(run, ())
+    threading.Thread(target=run).start()
+
 
 if __name__ == "__main__":
     ws = websocket.WebSocketApp("ws://{}:{}/api".format(HOST, PORT))
